@@ -1,0 +1,22 @@
+{
+  "name": "cafeteria-auditoria",
+  "version": "1.0.0",
+  "description": "Microservicio de Auditoría Independiente para Cafetería Kafka - Duoc UC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  },
+  "keywords": [
+    "kafka",
+    "kafkajs",
+    "auditoria",
+    "duoc",
+    "streaming"
+  ],
+  "author": "",
+  "license": "ISC"
+}
+

@@ -1,0 +1,23 @@
+{
+  "name": "cafeteria-kafka-frontend",
+  "version": "1.0.0",
+  "description": "Frontend y Backend Node.js para Caso Cafeteria Kafka - Duoc UC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "kafkajs": "^2.2.4"
+  },
+  "keywords": [
+    "kafka",
+    "kafkajs",
+    "express",
+    "duoc",
+    "cafeteria"
+  ],
+  "author": "",
+  "license": "ISC"
+}
+

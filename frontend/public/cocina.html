@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafetería Kafka — Monitor de Cocina (KDS)</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Encabezado de Operaciones -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="/cocina" class="brand-wrapper" aria-label="Cafetería Kafka Inicio">
+        <div class="brand-badge-icon" data-lucide="chef-hat" data-size="22"></div>
+        <div class="brand-text-col">
+          <div class="brand-name">
+            Cafetería Kafka
+            <span class="brand-tag">KDS Cocina</span>
+          </div>
+          <span class="brand-subtext">Duoc UC &bull; Monitor de Comandas en Vivo</span>
+        </div>
+      </a>
+
+      <nav class="nav-switcher" aria-label="Navegación de vistas">
+        <a href="/" class="nav-tab">
+          <span class="icon" data-lucide="store" data-size="16"></span>
+          <span>Tienda (Caja)</span>
+        </a>
+        <a href="/cocina" class="nav-tab active" aria-current="page">
+          <span class="icon" data-lucide="chef-hat" data-size="16"></span>
+          <span>Cocina (Monitor KDS)</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenedor KDS Principal -->
+  <main class="app-main">
+
+    <!-- Barra de Estado de Conectividad y Métricas KDS -->
+    <section class="kds-status-bar" aria-label="Estado operativo del sistema">
+      
+      <!-- Cluster de Conectividad SSE y Kafka -->
+      <div class="kds-conn-cluster">
+        <div id="status-pill" class="conn-pill status-connecting">
+          <div id="status-indicator" class="pulse-dot"></div>
+          <span id="status-text">Conectando canal SSE (/api/eventos)...</span>
+        </div>
+
+        <div class="kafka-broker-tag" title="Estado de integración Kafka">
+          <span class="icon" data-lucide="layers" data-size="14"></span>
+          <span>Topic: <code>pedidos</code> (P0, P1, P2)</span>
+        </div>
+      </div>
+
+      <!-- Métricas Operativas en Tiempo Real -->
+      <div class="kds-metrics-group">
+        <div class="kds-stat-col">
+          <div id="contador-pedidos" class="kds-stat-number tabular-nums">0</div>
+          <div class="kds-stat-label">Comandas Recibidas</div>
+        </div>
+        <div class="kds-stat-col">
+          <div id="hora-actualizacion" class="kds-stat-number tabular-nums">--:--:--</div>
+          <div class="kds-stat-label">Último Evento</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Grilla de Comandas en Cocina -->
+    <section aria-label="Tablero de pedidos activos">
+      <div id="pedidos-grid" class="kds-grid">
+
+        <!-- Estado Vacío Inicial: Sin simulación de pedidos -->
+        <div class="kds-empty-container" id="empty-state">
+          <div class="kds-empty-icon" data-lucide="utensils" data-size="28"></div>
+          <h2 class="kds-empty-title">Tablero KDS en Espera de Comandas</h2>
+          <p class="kds-empty-desc">
+            Este monitor escucha en tiempo real el canal SSE <code>/api/eventos</code>.
+            Cuando el consumidor KafkaJS (TODO 5, 6 y 7) despache eventos desde el broker, las comandas aparecerán inmediatamente aquí.
+          </p>
+
+          <!-- Botón de prueba para inspección visual de diseño (aislado de producción) -->
+          <button type="button" id="btn-toggle-preview" class="kds-test-mode-btn">
+            <span class="icon" data-lucide="sparkles" data-size="14"></span>
+            <span>Verificar tarjetas de muestra (Modo Diseño)</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Operativo -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="icon" data-lucide="chef-hat" data-size="16"></span>
+        <span>Kitchen Display System (KDS) &bull; Cafetería Kafka &bull; Consumo en grupo <code>grupo-cocina</code></span>
+      </div>
+      <div class="footer-right">
+        <span>Conexión: <code>Server-Sent Events (SSE)</code></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/icons.js"></script>
+  <script src="/js/cocina.js"></script>
+</body>
+</html>

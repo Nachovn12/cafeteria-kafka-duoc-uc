@@ -1,0 +1,1226 @@
+/**
+ * styles.css - Design System & Component Styles
+ * Cafetería Kafka — Duoc UC
+ * 
+ * Concepto: Specialty Coffee Operations & Modern Café POS / KDS
+ * Cumple con: interface-design, frontend-design y better-ui
+ */
+
+/* ==========================================================================
+   1. DESIGN TOKENS & SYSTEM VARIABLES
+   ========================================================================== */
+
+:root {
+  /* Identidad: Espresso Tostado y Especialidad */
+  --espresso-950: #120e0b;
+  --espresso-900: #1b1512;
+  --espresso-850: #241c18;
+  --espresso-800: #2e241f;
+  --espresso-700: #463730;
+  --espresso-600: #5e4c43;
+
+  /* Acentos: Crema, Caramelo y Tueste */
+  --accent-amber: #b86d28;
+  --accent-amber-hover: #9c591c;
+  --accent-amber-subtle: #fcf6ef;
+  --accent-amber-border: #ebd3bc;
+
+  /* Superficies: Porcelana Neutra y Papel Térmico */
+  --surface-canvas: #f4f3f0;
+  --surface-card: #ffffff;
+  --surface-raised: #fbfaf8;
+  --surface-sunken: #ece9e3;
+  --surface-subtle: #f7f6f4;
+  --surface-kds-header: #181412;
+
+  /* Bordes Estructurales */
+  --border-subtle: #ebe7e1;
+  --border-default: #dcd6ce;
+  --border-strong: #bfb5a8;
+  --border-focus: #b86d28;
+
+  /* Tipografía y Contraste de Texto */
+  --text-primary: #181412;
+  --text-secondary: #4a413c;
+  --text-muted: #786f68;
+  --text-inverse: #fbfaf8;
+
+  /* Estados Semánticos Operativos */
+  --status-live: #167942;
+  --status-live-bg: #eef8f2;
+  --status-live-border: #bce5cc;
+
+  --status-warning: #b45309;
+  --status-warning-bg: #fffbeb;
+  --status-warning-border: #fde68a;
+
+  --status-danger: #c22929;
+  --status-danger-bg: #fdf2f2;
+  --status-danger-border: #f8c8c8;
+
+  --status-info: #1565c0;
+  --status-info-bg: #edf5fe;
+  --status-info-border: #bfdbfe;
+
+  /* Kafka Meta Dark Ledger */
+  --kafka-ledger-bg: #1a1816;
+  --kafka-ledger-border: #332d28;
+  --kafka-ledger-text: #eae6e1;
+  --kafka-accent: #f27244;
+
+  /* Geometría y Elevaciones (better-ui concentric radius & layered shadows) */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(18, 14, 11, 0.05);
+  --shadow-md: 0 2px 4px rgba(18, 14, 11, 0.04), 0 6px 14px rgba(18, 14, 11, 0.06);
+  --shadow-lg: 0 4px 8px rgba(18, 14, 11, 0.04), 0 12px 24px rgba(18, 14, 11, 0.08);
+  --shadow-ticket: 0 2px 8px rgba(18, 14, 11, 0.08), 0 12px 28px rgba(18, 14, 11, 0.07);
+
+  /* Tipografías del Sistema */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+}
+
+/* ==========================================================================
+   2. RESET & BASE ELEMENTS
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--surface-canvas);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Números tabulares para métricas, horas y offsets */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Iconos SVG alineados ópticamente */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Focus accesible unificado (better-ui & better-accessibility) */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   3. HEADER & NAVEGACIÓN PROFESIONAL
+   ========================================================================== */
+
+.app-header {
+  background: var(--espresso-950);
+  color: var(--text-inverse);
+  border-bottom: 1px solid var(--espresso-800);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-badge-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--espresso-850);
+  border: 1px solid var(--espresso-700);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-amber);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.08);
+}
+
+.brand-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--espresso-800);
+  color: var(--accent-amber);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.brand-subtext {
+  font-size: 0.75rem;
+  color: #9e9389;
+  letter-spacing: 0.02em;
+}
+
+.nav-switcher {
+  display: flex;
+  background: var(--espresso-900);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--espresso-800);
+}
+
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #b5aba1;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: color 150ms ease-out, background-color 150ms ease-out;
+}
+
+@media (hover: hover) {
+  .nav-tab:hover {
+    color: #ffffff;
+    background: var(--espresso-800);
+  }
+}
+
+.nav-tab.active {
+  color: #ffffff;
+  background: var(--espresso-700);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   4. LAYOUT PRINCIPAL
+   ========================================================================== */
+
+.app-main {
+  max-width: 1360px;
+  width: 100%;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+}
+
+/* Grilla Tienda (POS Layout) */
+.tienda-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.95fr);
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .tienda-workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjetas Principales */
+.panel-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-raised);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.panel-title .icon {
+  color: var(--accent-amber);
+}
+
+.panel-body {
+  padding: 1.5rem;
+}
+
+/* ==========================================================================
+   5. FORMULARIO PUNTO DE VENTA (TIENDA)
+   ========================================================================== */
+
+.form-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.form-group {
+  margin-bottom: 1.35rem;
+}
+
+.form-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.45rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.form-label .required-dot {
+  color: var(--status-danger);
+  font-weight: 700;
+}
+
+.form-input-wrapper {
+  position: relative;
+}
+
+.input-icon-prefix {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.text-input,
+.select-input,
+.textarea-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: #ffffff;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.9rem;
+  transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+}
+
+.text-input.has-prefix {
+  padding-left: 2.6rem;
+}
+
+.text-input:focus,
+.select-input:focus,
+.textarea-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(184, 109, 40, 0.15);
+}
+
+.textarea-input {
+  min-height: 72px;
+  resize: vertical;
+}
+
+/* Selector Rápido de Productos (Product Quick Chips) */
+.product-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.preset-chip {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  transition: background-color 140ms ease-out, border-color 140ms ease-out, transform 120ms ease-out;
+}
+
+@media (hover: hover) {
+  .preset-chip:hover {
+    background: #ffffff;
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+}
+
+.preset-chip.selected {
+  background: var(--accent-amber-subtle);
+  border-color: var(--accent-amber);
+  color: var(--espresso-950);
+  font-weight: 600;
+}
+
+.preset-chip-title {
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.preset-chip-cat {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Fila de campos dividida */
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Stepper de Cantidad */
+.stepper-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  overflow: hidden;
+  width: 100%;
+}
+
+.stepper-btn {
+  background: var(--surface-subtle);
+  border: none;
+  flex: 1;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color 120ms ease-out;
+}
+
+@media (hover: hover) {
+  .stepper-btn:hover {
+    background: var(--surface-sunken);
+    color: var(--text-primary);
+  }
+}
+
+.stepper-btn:active {
+  transform: scale(0.95);
+}
+
+.stepper-input {
+  width: 50px;
+  border: none;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: transparent;
+  padding: 0;
+}
+
+.stepper-input:focus {
+  outline: none;
+}
+
+/* Notas Rápidas Presets */
+.quick-notes-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.45rem;
+}
+
+.quick-note-pill {
+  font-size: 0.75rem;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+@media (hover: hover) {
+  .quick-note-pill:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+}
+
+/* Botón Principal de Envío (better-ui scale on press) */
+.btn-submit-order {
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  background: var(--espresso-950);
+  color: #ffffff;
+  border: 1px solid var(--espresso-800);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 120ms ease-out, background-color 140ms ease-out, opacity 140ms ease-out;
+}
+
+@media (hover: hover) {
+  .btn-submit-order:hover:not(:disabled) {
+    background: var(--espresso-850);
+    border-color: var(--espresso-700);
+  }
+}
+
+.btn-submit-order:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn-submit-order:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   6. COMPROBANTE DIGITAL & KAFKA LEDGER
+   ========================================================================== */
+
+.receipt-wrapper {
+  position: sticky;
+  top: 5rem;
+}
+
+.ticket-card {
+  background: #ffffff;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-ticket);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Banda superior de ticket térmico */
+.ticket-strip {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--espresso-900),
+    var(--espresso-900) 12px,
+    var(--accent-amber) 12px,
+    var(--accent-amber) 24px
+  );
+}
+
+.ticket-content {
+  padding: 1.5rem;
+}
+
+.ticket-header-meta {
+  text-align: center;
+  border-bottom: 1px dashed var(--border-default);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ticket-shop-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--espresso-950);
+}
+
+.ticket-order-tag {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-amber);
+  margin-top: 0.2rem;
+}
+
+.ticket-timestamp {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.ticket-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.ticket-customer-badge {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticket-item-qty {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--espresso-900);
+}
+
+.ticket-item-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ticket-note-box {
+  background: #faf8f5;
+  border-left: 3px solid var(--accent-amber);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 0.75rem 0 1rem;
+}
+
+/* Bloque Especial de Metadatos Reales Kafka (Ledger) */
+.kafka-ledger-box {
+  background: var(--kafka-ledger-bg);
+  border: 1px solid var(--kafka-ledger-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  color: var(--kafka-ledger-text);
+  margin-top: 1.25rem;
+}
+
+.kafka-ledger-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--kafka-accent);
+  margin-bottom: 0.75rem;
+}
+
+.kafka-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.kafka-metric-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.5rem;
+}
+
+.kafka-metric-val {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.kafka-metric-lbl {
+  font-size: 0.7rem;
+  color: #a8a096;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.25rem;
+}
+
+/* Banner de Estado Dinámico */
+.status-banner {
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.status-banner-title {
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.status-banner.banner-warning {
+  background: var(--status-warning-bg);
+  border: 1px solid var(--status-warning-border);
+  color: #92400e;
+}
+
+.status-banner.banner-warning .icon {
+  color: var(--status-warning);
+}
+
+.status-banner.banner-error {
+  background: var(--status-danger-bg);
+  border: 1px solid var(--status-danger-border);
+  color: #991b1b;
+}
+
+.status-banner.banner-error .icon {
+  color: var(--status-danger);
+}
+
+.status-banner.banner-info {
+  background: var(--status-live-bg);
+  border: 1px solid var(--status-live-border);
+  color: #065f46;
+}
+
+.status-banner.banner-info .icon {
+  color: var(--status-live);
+}
+
+/* Estado Vacío de Comprobante */
+.ticket-empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--surface-raised);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+}
+
+.empty-state-icon-wrap {
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.9rem;
+  color: var(--text-muted);
+}
+
+.empty-state-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.empty-state-text {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   7. KITCHEN DISPLAY SYSTEM (KDS) — COCINA
+   ========================================================================== */
+
+/* Barra Superior de Estado KDS */
+.kds-status-bar {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.kds-conn-cluster {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.conn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.conn-pill.status-connected {
+  background: var(--status-live-bg);
+  border-color: var(--status-live-border);
+  color: var(--status-live);
+}
+
+.conn-pill.status-connecting {
+  background: var(--status-warning-bg);
+  border-color: var(--status-warning-border);
+  color: var(--status-warning);
+}
+
+.conn-pill.status-disconnected {
+  background: var(--status-danger-bg);
+  border-color: var(--status-danger-border);
+  color: var(--status-danger);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.conn-pill.status-connected .pulse-dot {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.kafka-broker-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+
+/* Métricas del KDS */
+.kds-metrics-group {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.kds-stat-col {
+  text-align: right;
+}
+
+.kds-stat-number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--espresso-950);
+  line-height: 1.1;
+  font-family: var(--font-mono);
+}
+
+.kds-stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* Grilla Operativa KDS */
+.kds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Tarjeta de Comanda en Cocina (KDS Order Card) */
+.kds-card {
+  background: #ffffff;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 140ms ease-out, box-shadow 140ms ease-out;
+}
+
+@media (hover: hover) {
+  .kds-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.kds-card-header {
+  padding: 0.85rem 1.15rem;
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kds-order-badge {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: var(--espresso-900);
+  color: #ffffff;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.kds-time-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.kds-card-body {
+  padding: 1.15rem;
+  flex: 1;
+}
+
+.kds-customer-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--espresso-950);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+}
+
+.kds-item-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.kds-qty-badge {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  background: var(--accent-amber-subtle);
+  color: var(--accent-amber-hover);
+  border: 1px solid var(--accent-amber-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  line-height: 1.2;
+}
+
+.kds-product-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.kds-note-box {
+  background: var(--status-warning-bg);
+  border-left: 3px solid var(--status-warning);
+  padding: 0.45rem 0.75rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #78350f;
+  margin-top: 0.75rem;
+}
+
+.kds-card-footer {
+  padding: 0.75rem 1.15rem;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.kds-partition-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--surface-sunken);
+  color: var(--espresso-900);
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+}
+
+/* Tarjeta KDS para Mensaje Mal Formado (Requisito R7) */
+.kds-card.card-malformed {
+  border-color: var(--status-warning-border);
+  background: #fffdf9;
+}
+
+.kds-card.card-malformed .kds-card-header {
+  background: var(--status-warning-bg);
+  border-color: var(--status-warning-border);
+}
+
+.kds-card.card-malformed .kds-order-badge {
+  background: var(--status-warning);
+}
+
+.kds-malformed-alert {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--status-warning);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.kds-malformed-payload {
+  background: #ffffff;
+  border: 1px solid var(--status-warning-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #78350f;
+  word-break: break-all;
+}
+
+/* Estado Vacío de KDS */
+.kds-empty-container {
+  grid-column: 1 / -1;
+  background: var(--surface-card);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.kds-empty-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  color: var(--espresso-800);
+}
+
+.kds-empty-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--espresso-950);
+  margin-bottom: 0.4rem;
+}
+
+.kds-empty-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.5;
+}
+
+.kds-test-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+  color: var(--text-muted);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 120ms ease-out;
+}
+
+@media (hover: hover) {
+  .kds-test-mode-btn:hover {
+    background: var(--surface-raised);
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+  }
+}
+
+/* ==========================================================================
+   8. FOOTER OPERATIVO
+   ========================================================================== */
+
+.app-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-default);
+  background: #ffffff;
+  padding: 1rem 1.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.footer-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-right {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE BREAKPOINTS & ACCESSIBILITY (better-ui)
+   ========================================================================== */
+
+/* Laptop (1024px) */
+@media (max-width: 1024px) {
+  .app-main {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+}
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+  .nav-tab {
+    flex: 1;
+    justify-content: center;
+  }
+  .kds-status-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .kds-metrics-group {
+    justify-content: space-between;
+  }
+}
+
+/* Móvil (390px) */
+@media (max-width: 480px) {
+  .product-presets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Respeto a Reduced Motion (better-ui & better-accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

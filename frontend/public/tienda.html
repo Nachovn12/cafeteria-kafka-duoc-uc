@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafetería Kafka — Punto de Venta (POS)</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Encabezado de Operaciones -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="/" class="brand-wrapper" aria-label="Cafetería Kafka Inicio">
+        <div class="brand-badge-icon" data-lucide="coffee" data-size="22"></div>
+        <div class="brand-text-col">
+          <div class="brand-name">
+            Cafetería Kafka
+            <span class="brand-tag">POS Terminal</span>
+          </div>
+          <span class="brand-subtext">Duoc UC &bull; Arquitectura EDA &bull; Apache Kafka</span>
+        </div>
+      </a>
+
+      <nav class="nav-switcher" aria-label="Navegación de vistas">
+        <a href="/" class="nav-tab active" aria-current="page">
+          <span class="icon" data-lucide="store" data-size="16"></span>
+          <span>Tienda (Caja)</span>
+        </a>
+        <a href="/cocina" class="nav-tab">
+          <span class="icon" data-lucide="chef-hat" data-size="16"></span>
+          <span>Cocina (Monitor KDS)</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal: Grilla POS -->
+  <main class="app-main">
+    <div class="tienda-workspace">
+
+      <!-- Panel Izquierdo: Terminal de Ingreso de Pedidos -->
+      <section class="panel-card" aria-labelledby="pos-form-title">
+        <div class="panel-header">
+          <h1 id="pos-form-title" class="panel-title">
+            <span class="icon" data-lucide="coffee" data-size="18"></span>
+            <span>Nueva Comanda de Cafetería</span>
+          </h1>
+          <span class="brand-tag">Registro Activo</span>
+        </div>
+
+        <div class="panel-body">
+          <form id="form-pedido" novalidate>
+
+            <!-- Sección: Cliente -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="cliente" class="form-label">
+                  <span class="icon" data-lucide="user" data-size="14"></span>
+                  <span>Nombre del Cliente</span>
+                  <span class="required-dot" title="Obligatorio">*</span>
+                </label>
+              </div>
+              <div class="form-input-wrapper">
+                <span class="input-icon-prefix" data-lucide="user" data-size="16"></span>
+                <input 
+                  type="text" 
+                  id="cliente" 
+                  name="cliente" 
+                  class="text-input has-prefix" 
+                  placeholder="Ej: Ana González, Carlos, Sofía..." 
+                  required
+                  autocomplete="off"
+                  autofocus
+                >
+              </div>
+            </div>
+
+            <!-- Sección: Selección de Producto con Presets Rápidos -->
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="producto" class="form-label">
+                  <span class="icon" data-lucide="coffee" data-size="14"></span>
+                  <span>Producto de Especialidad</span>
+                  <span class="required-dot" title="Obligatorio">*</span>
+                </label>
+                <span class="form-section-title" style="margin-bottom: 0;">Selección rápida</span>
+              </div>
+
+              <!-- Fichas de Acceso Rápido (Barista Fast-Select) -->
+              <div class="product-presets-grid" id="product-presets" role="group" aria-label="Accesos rápidos a productos">
+                <button type="button" class="preset-chip" data-product="Café Espresso">
+                  <span class="preset-chip-title">Espresso</span>
+                  <span class="preset-chip-cat">Extracción pura</span>
+                </button>
+                <button type="button" class="preset-chip" data-product="Café Americano">
+                  <span class="preset-chip-title">Americano</span>
+                  <span class="preset-chip-cat">Filtrado clásico</span>
+                </button>
+                <button type="button" class="preset-chip" data-product="Café Latte">
+                  <span class="preset-chip-title">Café Latte</span>
+                  <span class="preset-chip-cat">Leche vaporizada</span>
+                </button>
+                <button type="button" class="preset-chip" data-product="Cappuccino">
+                  <span class="preset-chip-title">Cappuccino</span>
+                  <span class="preset-chip-cat">Espuma densa</span>
+                </button>
+                <button type="button" class="preset-chip" data-product="Medialuna de Manteca">
+                  <span class="preset-chip-title">Medialuna</span>
+                  <span class="preset-chip-cat">Horneada hoy</span>
+                </button>
+                <button type="button" class="preset-chip" data-product="Tostón con Palta">
+                  <span class="preset-chip-title">Tostón Palta</span>
+                  <span class="preset-chip-cat">Masa madre</span>
+                </button>
+              </div>
+
+              <!-- Selector tradicional sincronizado -->
+              <select id="producto" name="producto" class="select-input" required>
+                <option value="" disabled selected>Seleccione un producto del catálogo...</option>
+                <optgroup label="Bebidas Calientes &amp; Café">
+                  <option value="Café Espresso">Café Espresso</option>
+                  <option value="Café Americano">Café Americano</option>
+                  <option value="Café Latte">Café Latte</option>
+                  <option value="Cappuccino">Cappuccino</option>
+                  <option value="Mocaccino">Mocaccino</option>
+                </optgroup>
+                <optgroup label="Pastelería &amp; Cocina">
+                  <option value="Medialuna de Manteca">Medialuna de Manteca</option>
+                  <option value="Muffin de Arándanos">Muffin de Arándanos</option>
+                  <option value="Tostón con Palta">Tostón con Palta</option>
+                  <option value="Sandwich Jamón y Queso">Sandwich Jamón y Queso</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Fila: Cantidad y Notas -->
+            <div class="form-row">
+              <!-- Selector Numérico con Stepper -->
+              <div class="form-group">
+                <div class="form-label-row">
+                  <label for="cantidad" class="form-label">
+                    <span class="icon" data-lucide="hash" data-size="14"></span>
+                    <span>Cantidad</span>
+                    <span class="required-dot" title="Obligatorio">*</span>
+                  </label>
+                </div>
+                <div class="stepper-container">
+                  <button type="button" class="stepper-btn" id="btn-qty-minus" aria-label="Disminuir cantidad">
+                    <span class="icon" data-lucide="minus" data-size="14"></span>
+                  </button>
+                  <input 
+                    type="number" 
+                    id="cantidad" 
+                    name="cantidad" 
+                    class="stepper-input tabular-nums" 
+                    min="1" 
+                    max="20" 
+                    value="1" 
+                    required
+                  >
+                  <button type="button" class="stepper-btn" id="btn-qty-plus" aria-label="Aumentar cantidad">
+                    <span class="icon" data-lucide="plus" data-size="14"></span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Instrucciones especiales -->
+              <div class="form-group">
+                <div class="form-label-row">
+                  <label for="nota" class="form-label">
+                    <span>Instrucción o Nota</span>
+                  </label>
+                </div>
+                <textarea 
+                  id="nota" 
+                  name="nota" 
+                  class="textarea-input" 
+                  placeholder="Ej: sin azúcar, leche de almendras, tibio..."
+                ></textarea>
+
+                <!-- Pastillas de notas rápidas -->
+                <div class="quick-notes-row" aria-label="Notas rápidas frecuentes">
+                  <button type="button" class="quick-note-pill" data-note="Sin azúcar">Sin azúcar</button>
+                  <button type="button" class="quick-note-pill" data-note="Leche descremada">Leche descremada</button>
+                  <button type="button" class="quick-note-pill" data-note="Leche de avena">Leche de avena</button>
+                  <button type="button" class="quick-note-pill" data-note="Para llevar">Para llevar</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón Principal -->
+            <button type="submit" id="btn-enviar" class="btn-submit-order">
+              <span class="icon" data-lucide="send" data-size="18"></span>
+              <span id="btn-text">Confirmar y Despachar a Kafka</span>
+            </button>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- Panel Derecho: Comprobante Digital & Ledger Kafka -->
+      <aside class="receipt-wrapper" aria-labelledby="receipt-title">
+        <div class="ticket-card">
+          <div class="ticket-strip"></div>
+
+          <div class="panel-header">
+            <h2 id="receipt-title" class="panel-title">
+              <span class="icon" data-lucide="receipt" data-size="18"></span>
+              <span>Comprobante de Kafka</span>
+            </h2>
+            <span class="brand-tag">R1 Ledger</span>
+          </div>
+
+          <div class="ticket-content">
+            <!-- Banner de Alerta / Estado Dinámico -->
+            <div id="banner-estado" style="display: none;" role="status" aria-live="polite"></div>
+
+            <!-- Contenedor del Comprobante -->
+            <div id="comprobante-area">
+              <div class="ticket-empty-state">
+                <div class="empty-state-icon-wrap" data-lucide="receipt" data-size="24"></div>
+                <div class="empty-state-heading">Sin comanda emitida</div>
+                <p class="empty-state-text">
+                  Al enviar un pedido, el comprobante digital con la confirmación de Kafka (partición y offset) se registrará aquí.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Footer Operativo -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="icon" data-lucide="coffee" data-size="16"></span>
+        <span>Cafetería Kafka &bull; Duoc UC &bull; Tópico: <code>pedidos</code> (3 Particiones)</span>
+      </div>
+      <div class="footer-right">
+        <span>Broker: <code>kafka:29092</code></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/icons.js"></script>
+  <script src="/js/tienda.js"></script>
+</body>
+</html>

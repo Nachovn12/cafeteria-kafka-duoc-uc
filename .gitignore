@@ -1,0 +1,83 @@
+# ==============================================================================
+# .gitignore — Cafetería Kafka (Duoc UC)
+# Node.js, Express, KafkaJS, Docker Compose & Windows Development
+# ==============================================================================
+
+# 1. Dependencias de Node.js (instaladas dinámicamente en contenedor o local)
+node_modules/
+*/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+package-lock.json.bak
+
+# 2. Variables de entorno y credenciales sensibles (conservar .env.example)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+
+# 3. Logs, diagnósticos y archivos temporales
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+tmp/
+temp/
+
+# 4. Caché de compilación, cobertura y herramientas
+.npm/
+.eslintcache
+.cache/
+dist/
+build/
+coverage/
+.nyc_output/
+
+# 5. Archivos del Sistema Operativo (Windows & macOS)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 6. Configuraciones de Entornos de Desarrollo (IDE / Editores)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 7. Persistencia local de datos Kafka / Docker (volúmenes de desarrollo en host)
+data/
+kafka-data/
+zookeeper-data/
+*.snapshot
+*.index
+*.timeindex
+
+# 8. Habilidades de Agentes IA externas (reproducibles mediante skills-lock.json)
+.agents/skills/
+.agents/
+
+# 9. Archivos temporales de pruebas y scratch
+scratch/
+test-results/
+
